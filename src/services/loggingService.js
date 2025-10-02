@@ -31,6 +31,9 @@ class LoggingService {
         return { success: true, logged: 'console' };
       }
 
+      console.log('🎯 LOGGING USER INTERACTION TO PIPEDREAM:');
+      console.log('📦 Interaction data:', logEntry);
+      
       const response = await fetch(this.webhookUrl, {
         method: 'POST',
         headers: {
@@ -40,7 +43,8 @@ class LoggingService {
       });
 
       if (response.ok) {
-        console.log('✅ Interaction logged successfully');
+        console.log('✅ Interaction logged successfully to Pipedream');
+        console.log('🔗 Check your Pipedream dashboard at: https://pipedream.com/');
         return { success: true, logged: 'webhook' };
       } else {
         throw new Error('Webhook request failed');
@@ -159,6 +163,11 @@ class LoggingService {
 
   // Método auxiliar para enviar datos al webhook
   async sendToWebhook(data) {
+    console.log('🚀 SENDING TO PIPEDREAM RequestBin:');
+    console.log('📍 URL:', this.webhookUrl);
+    console.log('📦 Data being sent:', data);
+    console.log('🔄 JSON payload:', JSON.stringify(data, null, 2));
+    
     try {
       const response = await fetch(this.webhookUrl, {
         method: 'POST',
@@ -168,14 +177,24 @@ class LoggingService {
         body: JSON.stringify(data)
       });
 
+      console.log('📊 Response status:', response.status);
+      console.log('📋 Response headers:', Object.fromEntries(response.headers.entries()));
+
       if (response.ok) {
-        console.log('✅ Data sent to RequestBin successfully');
-        return { success: true, logged: 'webhook' };
+        const responseText = await response.text();
+        console.log('✅ SUCCESS: Data sent to Pipedream RequestBin');
+        console.log('📝 Response body:', responseText);
+        return { success: true, logged: 'webhook', response: responseText };
       } else {
-        throw new Error('Webhook request failed');
+        const errorText = await response.text();
+        console.error('❌ FAILED: Webhook request failed');
+        console.error('📝 Error response:', errorText);
+        throw new Error(`Webhook request failed: ${response.status} ${errorText}`);
       }
     } catch (error) {
-      console.error('Webhook error:', error);
+      console.error('🔥 WEBHOOK ERROR:', error);
+      console.error('📍 Failed URL:', this.webhookUrl);
+      console.error('📦 Failed data:', data);
       return { success: false, error: error.message };
     }
   }

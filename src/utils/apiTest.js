@@ -94,17 +94,33 @@ class APITester {
   }
 
   async testWebhookAPI() {
-    console.log('🌐 Testing Pipedream Webhook...')
+    console.log('🌐 Testing Pipedream RequestBin Webhook...')
     
     try {
       const testData = {
-        type: 'api_test',
+        type: 'requestbin_test',
         session_id: 'test-session-' + Date.now(),
-        user_id: 'test-user',
+        user_id: 'test-user-' + Math.random().toString(36).substr(2, 5),
         timestamp: new Date().toISOString(),
-        test_message: 'API Test from voicebot-trainer',
-        data: { test: true, apis_tested: ['gemini', 'exerciseDB', 'nutrition'] }
+        test_message: 'RequestBin Test from Voicebot Trainer',
+        app_version: '1.0.0',
+        test_details: {
+          browser: navigator.userAgent,
+          url: window.location.href,
+          timestamp_readable: new Date().toLocaleString('es-ES'),
+          apis_tested: ['gemini', 'exerciseDB', 'nutrition'],
+          test_purpose: 'Verificar que los datos lleguen correctamente a Pipedream'
+        },
+        sample_interaction: {
+          user_query: 'Dame ejercicios para brazos',
+          bot_response: 'Te recomiendo hacer flexiones y curl de bíceps',
+          detected_intent: 'exercise',
+          body_part: 'arms'
+        }
       }
+      
+      console.log('📤 Sending test data to Pipedream RequestBin...')
+      console.log('🔗 RequestBin URL:', LoggingService.webhookUrl)
       
       const result = await LoggingService.sendToWebhook(testData)
       
@@ -112,11 +128,15 @@ class APITester {
       this.results.webhook.data = result
       
       if (result.success) {
-        console.log('✅ Pipedream Webhook: SUCCESS')
-        console.log('   Data sent successfully to RequestBin')
+        console.log('✅ Pipedream RequestBin: SUCCESS')
+        console.log('   ✓ Data sent successfully to your RequestBin')
+        console.log('   🔗 Check your Pipedream dashboard: https://pipedream.com/')
+        console.log('   📋 Look for data type: "requestbin_test"')
+        console.log('   🕐 Sent at:', new Date().toLocaleString('es-ES'))
       } else {
-        console.error('❌ Pipedream Webhook: FAILED')
+        console.error('❌ Pipedream RequestBin: FAILED')
         console.error('   Error:', result.error)
+        console.error('   🔧 Check your VITE_WEBHOOK_URL in .env file')
       }
       
       return result.success
@@ -124,8 +144,9 @@ class APITester {
       this.results.webhook.status = 'error'
       this.results.webhook.error = error.message
       
-      console.error('❌ Pipedream Webhook: FAILED')
+      console.error('❌ Pipedream RequestBin: FAILED')
       console.error('   Error:', error.message)
+      console.error('   🔧 Verify your RequestBin URL and internet connection')
       
       return false
     }
@@ -224,6 +245,72 @@ class APITester {
         totalTime,
         successRate: passedTests / 5
       }
+    }
+  }
+
+  // Método específico para probar solo el RequestBin
+  async testRequestBinOnly() {
+    console.log('🎯 TESTING ONLY PIPEDREAM REQUESTBIN')
+    console.log('=' * 40)
+    
+    const testData = {
+      type: 'manual_requestbin_test',
+      session_id: 'manual-test-' + Date.now(),
+      user_id: 'manual-user-' + Math.random().toString(36).substr(2, 5),
+      timestamp: new Date().toISOString(),
+      manual_test: true,
+      message: 'Este es un test manual del RequestBin de Pipedream',
+      details: {
+        purpose: 'Verificar que los datos lleguen correctamente',
+        expected_result: 'Datos visibles en el dashboard de Pipedream',
+        browser_info: navigator.userAgent,
+        page_url: window.location.href,
+        test_time: new Date().toLocaleString('es-ES', {
+          timeZone: 'America/Mexico_City',
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        })
+      }
+    }
+    
+    try {
+      console.log('📤 Enviando datos de prueba...')
+      const result = await LoggingService.sendToWebhook(testData)
+      
+      if (result.success) {
+        console.log('')
+        console.log('🎉 ¡SUCCESS! RequestBin funcionando correctamente')
+        console.log('✅ Los datos se enviaron a tu Pipedream RequestBin')
+        console.log('🔗 Ve a https://pipedream.com/ para ver los datos')
+        console.log('📋 Busca el evento con type: "manual_requestbin_test"')
+        console.log('🕐 Enviado a las:', new Date().toLocaleString('es-ES'))
+        console.log('')
+        console.log('💡 CÓMO VERIFICAR EN PIPEDREAM:')
+        console.log('   1. Entra a pipedream.com')
+        console.log('   2. Ve a tu workspace')
+        console.log('   3. Busca tu RequestBin (URL: https://eo4icjjsfx28yrq.m.pipedream.net)')
+        console.log('   4. Deberías ver el evento recién enviado')
+        
+        return true
+      } else {
+        console.error('')
+        console.error('❌ ERROR: RequestBin no está funcionando')
+        console.error('🔧 Posibles soluciones:')
+        console.error('   1. Verifica tu VITE_WEBHOOK_URL en el archivo .env')
+        console.error('   2. Asegúrate de que la URL sea: https://eo4icjjsfx28yrq.m.pipedream.net')
+        console.error('   3. Verifica tu conexión a internet')
+        console.error('   4. Revisa si el RequestBin sigue activo en Pipedream')
+        
+        return false
+      }
+    } catch (error) {
+      console.error('🔥 ERROR FATAL:', error.message)
+      return false
     }
   }
 

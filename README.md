@@ -424,8 +424,7 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 ## 👨‍💻 Autor
 
 **Tu Nombre**
-- GitHub: [@tu-usuario](https://github.com/tu-usuario)
-- LinkedIn: [tu-perfil](https://linkedin.com/in/tu-perfil)
+- GitHub: [@iRivalAether](https://github.com/iRivalAether)
 
 ## 🙏 Agradecimientos
 

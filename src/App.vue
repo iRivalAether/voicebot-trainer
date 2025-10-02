@@ -14,11 +14,18 @@
           </div>
           <div class="test-section">
             <button 
+              @click="testRequestBin" 
+              :disabled="isRunningTests"
+              class="test-button requestbin-btn"
+            >
+              {{ isRunningTests ? '⏳ Testing...' : '📡 Test RequestBin' }}
+            </button>
+            <button 
               @click="runAPITests" 
               :disabled="isRunningTests"
               class="test-button"
             >
-              {{ isRunningTests ? '⏳ Testing...' : '🧪 Test APIs' }}
+              {{ isRunningTests ? '⏳ Testing...' : '🧪 Test All APIs' }}
             </button>
           </div>
         </div>
@@ -277,6 +284,54 @@ export default {
       }
     }
 
+    const testRequestBin = async () => {
+      isRunningTests.value = true
+      
+      try {
+        console.log('📡 Testing ONLY Pipedream RequestBin...')
+        
+        const tester = new APITester()
+        const success = await tester.testRequestBinOnly()
+        
+        // Show result in chat interface
+        if (chatInterface.value) {
+          let message = ''
+          
+          if (success) {
+            message = `✅ RequestBin Test EXITOSO!\n\n`
+            message += `📡 Los datos se enviaron correctamente a Pipedream\n`
+            message += `🔗 Ve a https://pipedream.com/ para ver los datos\n`
+            message += `📋 Busca el evento "manual_requestbin_test"\n`
+            message += `🕐 Enviado: ${new Date().toLocaleString('es-ES')}\n\n`
+            message += `💡 Tu RequestBin está funcionando perfectamente`
+          } else {
+            message = `❌ RequestBin Test FALLÓ\n\n`
+            message += `🔧 Posibles problemas:\n`
+            message += `• URL del webhook incorrecta\n`
+            message += `• RequestBin inactivo\n`
+            message += `• Problema de conexión\n\n`
+            message += `📋 Revisa la consola para más detalles`
+          }
+          
+          chatInterface.value.addBotMessage(message, false)
+          
+          if (success) {
+            await speechService.value?.speak('Test del RequestBin exitoso. Los datos se enviaron correctamente a Pipedream.')
+          } else {
+            await speechService.value?.speak('Test del RequestBin falló. Revisa la configuración y la consola.')
+          }
+        }
+        
+      } catch (error) {
+        console.error('Error testing RequestBin:', error)
+        if (chatInterface.value) {
+          chatInterface.value.addBotMessage('Error probando RequestBin: ' + error.message, false)
+        }
+      } finally {
+        isRunningTests.value = false
+      }
+    }
+
     return {
       isListening,
       isProcessing,
@@ -284,7 +339,8 @@ export default {
       chatInterface,
       handleUserMessage,
       handleVoiceToggle,
-      runAPITests
+      runAPITests,
+      testRequestBin
     }
   }
 }
@@ -318,6 +374,7 @@ export default {
 .test-section {
   display: flex;
   align-items: center;
+  gap: 0.75rem;
 }
 
 .app-title {
@@ -355,6 +412,16 @@ export default {
 .test-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.requestbin-btn {
+  background: rgba(34, 197, 94, 0.2);
+  border-color: rgba(34, 197, 94, 0.4);
+}
+
+.requestbin-btn:hover:not(:disabled) {
+  background: rgba(34, 197, 94, 0.3);
+  border-color: rgba(34, 197, 94, 0.6);
 }
 
 @media (max-width: 768px) {
