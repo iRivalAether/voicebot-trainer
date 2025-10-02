@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎤 Voicebot Trainer - Demo Script</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .demo-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 1rem 0;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .test-category {
+            margin: 2rem 0;
+        }
+        .test-item {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 8px;
+            border-left: 4px solid #00ff88;
+        }
+        .code {
+            background: rgba(0,0,0,0.3);
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            margin: 0.5rem 0;
+        }
+        h1, h2, h3 {
+            color: #fff;
+        }
+        .highlight {
+            background: rgba(255,255,0,0.2);
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-card">
+        <h1>🎤 Voicebot Entrenador Personal - Guía de Demo</h1>
+        <p>Esta guía te ayudará a probar todas las funcionalidades del Voicebot Personal Trainer.</p>
+    </div>
+
+    <div class="demo-card">
+        <h2>🚀 Pasos para Inicializar</h2>
+        <div class="code">
+            # 1. Navegar al proyecto<br>
+            cd C:\xampp\htdocs\voicebot-trainer<br><br>
+            # 2. Instalar dependencias<br>
+            npm install<br><br>
+            # 3. Configurar environment (opcional)<br>
+            cp .env.example .env<br><br>
+            # 4. Iniciar servidor de desarrollo<br>
+            npm run dev<br><br>
+            # 5. Abrir http://localhost:3000
+        </div>
+    </div>
+
+    <div class="demo-card">
+        <h2>🎯 Casos de Prueba</h2>
+        
+        <div class="test-category">
+            <h3>🏋️ Ejercicios</h3>
+            <div class="test-item">
+                <strong>Test 1:</strong> Presiona 🎤 y di: <span class="highlight">"Dame ejercicios para brazos"</span>
+                <br><em>Esperado: Lista de ejercicios de brazos + explicación hablada</em>
+            </div>
+            <div class="test-item">
+                <strong>Test 2:</strong> Escribe: <span class="highlight">"rutina de piernas para principiantes"</span>
+                <br><em>Esperado: Ejercicios de piernas adaptados</em>
+            </div>
+            <div class="test-item">
+                <strong>Test 3:</strong> Voz: <span class="highlight">"ejercicios de pecho sin equipo"</span>
+                <br><em>Esperado: Ejercicios de cuerpo libre</em>
+            </div>
+        </div>
+
+        <div class="test-category">
+            <h3>🥗 Nutrición</h3>
+            <div class="test-item">
+                <strong>Test 4:</strong> Voz: <span class="highlight">"qué puedo desayunar saludable"</span>
+                <br><em>Esperado: Opciones de desayuno + consejos nutricionales</em>
+            </div>
+            <div class="test-item">
+                <strong>Test 5:</strong> Escribe: <span class="highlight">"dame ideas para una cena ligera"</span>
+                <br><em>Esperado: Sugerencias de cena + tips</em>
+            </div>
+            <div class="test-item">
+                <strong>Test 6:</strong> Voz: <span class="highlight">"snacks saludables después del gym"</span>
+                <br><em>Esperado: Snacks post-workout</em>
+            </div>
+        </div>
+
+        <div class="test-category">
+            <h3>💪 Motivación</h3>
+            <div class="test-item">
+                <strong>Test 7:</strong> Voz: <span class="highlight">"dame motivación para entrenar"</span>
+                <br><em>Esperado: Mensaje motivacional + tono encouraging</em>
+            </div>
+            <div class="test-item">
+                <strong>Test 8:</strong> Escribe: <span class="highlight">"necesito ánimos"</span>
+                <br><em>Esperado: Consejo motivacional personalizado</em>
+            </div>
+        </div>
+
+        <div class="test-category">
+            <h3>🔧 Funcionalidades Técnicas</h3>
+            <div class="test-item">
+                <strong>Test 9:</strong> Botón 🔇 al lado de respuestas del bot
+                <br><em>Esperado: Reproduce la respuesta nuevamente</em>
+            </div>
+            <div class="test-item">
+                <strong>Test 10:</strong> Verificar logs en consola del navegador (F12)
+                <br><em>Esperado: Ver logs de interacciones y APIs</em>
+            </div>
+            <div class="test-item">
+                <strong>Test 11:</strong> Probar sin conexión de APIs
+                <br><em>Esperado: Funciona con datos de fallback</em>
+            </div>
+        </div>
+    </div>
+
+    <div class="demo-card">
+        <h2>🔍 Verificaciones Técnicas</h2>
+        
+        <h3>Consola del Navegador (F12)</h3>
+        <div class="test-item">
+            • <strong>🤖 AI Analysis:</strong> Muestra el análisis de intención de Gemini
+            <br>• <strong>🎤 Voice recognition started/ended:</strong> Estado del micrófono
+            <br>• <strong>🗣️ Speech recognized:</strong> Texto detectado por voz
+            <br>• <strong>📊 User Interaction Log:</strong> Registro de conversaciones
+            <br>• <strong>✅ Interaction logged:</strong> Confirmación de logging
+        </div>
+
+        <h3>Network Tab (APIs)</h3>
+        <div class="test-item">
+            • <strong>Gemini API:</strong> Calls to generativelanguage.googleapis.com
+            <br>• <strong>ExerciseDB:</strong> Calls to exercisedb.p.rapidapi.com (si está configurada)
+            <br>• <strong>Advice Slip:</strong> Calls to api.adviceslip.com
+            <br>• <strong>Webhook:</strong> POST a tu URL de webhook (si está configurada)
+        </div>
+    </div>
+
+    <div class="demo-card">
+        <h2>📱 Compatibilidad</h2>
+        <div class="test-item">
+            <strong>✅ Navegadores Recomendados:</strong> Chrome 80+, Edge 80+, Safari 14+
+            <br><strong>⚠️ Limitaciones:</strong> Firefox (limitaciones en Web Speech API)
+            <br><strong>📱 Mobile:</strong> Funciona en móviles, pero mejor experiencia en desktop
+            <br><strong>🔐 HTTPS:</strong> Requerido para funcionalidades de voz en producción
+        </div>
+    </div>
+
+    <div class="demo-card">
+        <h2>🚀 Despliegue</h2>
+        
+        <h3>Build de Producción</h3>
+        <div class="code">
+            npm run build<br>
+            npm run preview  # Para probar el build localmente
+        </div>
+
+        <h3>Deploy a Vercel</h3>
+        <div class="code">
+            # Instalar Vercel CLI<br>
+            npm i -g vercel<br><br>
+            # Deploy<br>
+            vercel --prod<br><br>
+            # Configurar environment variables en dashboard
+        </div>
+    </div>
+
+    <div class="demo-card">
+        <h2>🎯 Criterios de Evaluación Cumplidos</h2>
+        <div class="test-item">
+            ✅ <strong>Voicebot funcional:</strong> Web Speech API + Speech Synthesis
+            <br>✅ <strong>Vue.js 3:</strong> Componentes reactivos y composición API
+            <br>✅ <strong>LLM multimodal:</strong> Google Gemini para análisis de intención
+            <br>✅ <strong>Consulta externa:</strong> ExerciseDB, Advice Slip APIs
+            <br>✅ <strong>Registro simulado:</strong> Webhook/RequestBin logging
+            <br>✅ <strong>Entrenador personal:</strong> Ejercicios, nutrición, motivación
+            <br>✅ <strong>Interacción natural:</strong> Respuestas contextualizadas
+            <br>✅ <strong>Documentación completa:</strong> README detallado
+        </div>
+    </div>
+
+    <div class="demo-card">
+        <h2>🎉 ¡Listo para la Demo!</h2>
+        <p>Tu Voicebot Entrenador Personal está completo y listo para impresionar. Todas las funcionalidades están implementadas con fallbacks robustos y una experiencia de usuario profesional.</p>
+        
+        <p><strong>Tip:</strong> Empieza la demo con "Dame ejercicios para brazos" para mostrar la funcionalidad completa de voz + IA + APIs + respuesta hablada.</p>
+    </div>
+</body>
+</html>
