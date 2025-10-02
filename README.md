@@ -1,106 +1,254 @@
-# 🏋️‍♂️ Voicebot Entrenador Personal Virtual
+# 🏋️‍♂️ Voicebot Personal Trainer
 
-Un asistente de entrenamiento personal con inteligencia artificial que responde por voz, construido con Vue.js 3 y APIs de fitness/nutrición.
+Un entrenador personal virtual con inteligencia artificial y control por voz que te ayuda con ejercicios, nutrición y motivación.
 
 [![Vue.js](https://img.shields.io/badge/Vue.js-3.4+-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white)](https://vuejs.org/)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/es/docs/Web/JavaScript)
 [![Web Speech API](https://img.shields.io/badge/Web%20Speech%20API-Enabled-green?style=for-the-badge)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API)
 
-## 🎯 Características Principales
+## � Características
 
-- **🎤 Reconocimiento de Voz**: Interacción completamente por voz usando Web Speech API
-- **🔊 Síntesis de Voz**: Respuestas habladas con diferentes emociones y tonos
-- **🤖 IA Multimodal**: Integración con Google Gemini para análisis de intención avanzado
-- **🏋️ Ejercicios**: Consulta de rutinas y ejercicios específicos por grupo muscular
-- **🥗 Nutrición**: Consejos nutricionales personalizados para desayuno, almuerzo, cena y snacks
-- **💪 Motivación**: Mensajes motivacionales para mantener el ánimo
-- **📊 Registro de Interacciones**: Logging automático de conversaciones para análisis
+- **🎤 Control por voz**: Habla naturalmente para hacer consultas
+- **🤖 IA avanzada**: Powered by Google Gemini para respuestas inteligentes
+- **🏋️ Ejercicios personalizados**: Rutinas basadas en parte del cuerpo
+- **🥗 Consejos nutricionales**: Recomendaciones alimentarias personalizadas  
+- **💪 Motivación**: Mensajes inspiradores cuando los necesites
+- **🎯 Selector de voz**: Múltiples narradores disponibles
+- **📊 Analytics**: Logging automático de interacciones
+- **🧪 Testing integrado**: Verificación del estado de APIs
 
-## 🚀 Demo en Vivo
+## 📋 Prerequisitos
 
-[Ver Demo](https://your-deployment-url.vercel.app) | [Video Demo](https://your-video-link.com)
+Antes de comenzar, asegúrate de tener instalado:
 
-## 📋 Casos de Uso
+- **Node.js** (versión 16 o superior) - [Descargar aquí](https://nodejs.org/)
+- **npm** (incluido con Node.js)
+- Un navegador moderno que soporte Web Speech API (Chrome recomendado)
 
-### Ejercicios
-- *"Dame ejercicios para brazos"*
-- *"Rutina de piernas para principiantes"*
-- *"Ejercicios de pecho sin equipo"*
+## � Instalación y Configuración
 
-### Nutrición
-- *"Qué puedo desayunar saludable"*
-- *"Dame ideas para una cena ligera"*
-- *"Snacks saludables para después del gym"*
+### 1. Clona el repositorio
 
-### Motivación
-- *"Dame motivación para entrenar"*
-- *"Necesito ánimos para seguir"*
-- *"Consejos motivacionales"*
-
-## 🛠️ Instalación y Configuración
-
-### Prerrequisitos
-
-- Node.js 16+ 
-- npm o yarn
-- Navegador moderno (Chrome, Edge, Firefox) con soporte para Web Speech API
-
-### Pasos de Instalación
-
-1. **Clona el repositorio**
 ```bash
-git clone https://github.com/tu-usuario/voicebot-trainer.git
+git clone https://github.com/iRivalAether/voicebot-trainer.git
 cd voicebot-trainer
 ```
 
-2. **Instala las dependencias**
+### 2. Instala las dependencias
+
 ```bash
 npm install
-# o
-yarn install
 ```
 
-3. **Configura las variables de entorno**
+### 3. Configura las variables de entorno
+
+Crea un archivo `.env` en la raíz del proyecto copiando el ejemplo:
+
 ```bash
 cp .env.example .env
 ```
 
-Edita el archivo `.env` con tus API keys:
+Edita el archivo `.env` y configura tus API keys:
 
 ```env
-# Google Gemini API Key (REQUERIDO para IA avanzada)
-VITE_GEMINI_API_KEY=tu_api_key_de_gemini_aqui
+# Google Gemini API Key (REQUERIDO)
+VITE_GEMINI_API_KEY=tu_gemini_api_key_aqui
 
-# RapidAPI Key (OPCIONAL - tiene datos de respaldo)
+# RapidAPI Key para ExerciseDB (OPCIONAL)
 VITE_RAPIDAPI_KEY=tu_rapidapi_key_aqui
 
-# Webhook URL (OPCIONAL - por defecto usa localStorage)
-VITE_WEBHOOK_URL=https://webhook.site/tu-id-unico
+# Webhook URL para logging (OPCIONAL)
+VITE_WEBHOOK_URL=https://tu-webhook-url.com
+
+# Configuración de la app
+VITE_APP_NAME=Voicebot Personal Trainer
+VITE_APP_VERSION=1.0.0
 ```
 
-4. **Inicia el servidor de desarrollo**
-```bash
-npm run dev
-# o
-yarn dev
-```
+### 4. Obtén las API Keys necesarias
 
-5. **Abre tu navegador**
-```
-http://localhost:3000
-```
-
-## 🔑 Configuración de APIs
-
-### Google Gemini API (Recomendado)
+#### 🔑 Google Gemini API (OBLIGATORIO)
 
 1. Ve a [Google AI Studio](https://aistudio.google.com/)
-2. Crea una cuenta y genera una API key
-3. Agrega la key a `VITE_GEMINI_API_KEY` en tu archivo `.env`
+2. Inicia sesión con tu cuenta de Google
+3. Crea un nuevo proyecto o usa uno existente
+4. Genera una API key
+5. Copia la key en `VITE_GEMINI_API_KEY`
 
-### ExerciseDB API (Opcional)
+#### 🏋️ RapidAPI ExerciseDB (OPCIONAL)
 
-1. Ve a [RapidAPI - ExerciseDB](https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb)
+1. Ve a [RapidAPI ExerciseDB](https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb)
+2. Crea una cuenta gratuita
+3. Suscríbete al plan gratuito
+4. Copia tu API key en `VITE_RAPIDAPI_KEY`
+
+*Nota: Si no configuras esta API, el sistema usará ejercicios predefinidos como fallback.*
+
+#### 🌐 Webhook para Analytics (OPCIONAL)
+
+Puedes usar cualquiera de estas opciones:
+
+- **Pipedream**: [pipedream.com](https://pipedream.com) (Recomendado)
+- **Webhook.site**: [webhook.site](https://webhook.site) (Para testing)
+- **RequestBin**: [requestbin.com](https://requestbin.com)
+
+### 5. Inicia el servidor de desarrollo
+
+```bash
+npm run dev
+```
+
+La aplicación estará disponible en: `http://localhost:5173`
+
+## 🎮 Cómo usar el Voicebot
+
+### 📱 Interfaz
+
+1. **Selector de voz**: En la parte superior, elige tu narrador preferido
+2. **Botón de voz** 🎤: Haz clic para activar el reconocimiento de voz
+3. **Input de texto**: Alternativamente, puedes escribir tus consultas
+4. **Test APIs** 🧪: Botón para verificar el estado de las integraciones
+
+### �️ Comandos de voz
+
+Puedes hablar naturalmente, por ejemplo:
+
+**Para ejercicios:**
+- "Dame ejercicios para brazos"
+- "Rutina de piernas" 
+- "Ejercicios de abdomen"
+- "Workout para espalda"
+
+**Para nutrición:**
+- "Qué puedo comer en el desayuno"
+- "Consejos para la cena"
+- "Dieta saludable"
+- "Opciones de snack"
+
+**Para motivación:**
+- "Necesito motivación"
+- "Dame ánimos"
+- "Consejos motivacionales"
+
+### ⏱️ Timeout automático
+
+El sistema automáticamente para la grabación después de 3 segundos de silencio.
+
+## 🧪 Testing
+
+### Test automático de APIs
+
+Haz clic en el botón "🧪 Test APIs" para verificar:
+- ✅ Conexión con Gemini AI
+- ✅ Estado de ExerciseDB API
+- ✅ Funcionamiento del webhook
+- ✅ Integración completa
+
+### Test manual
+
+```bash
+# Ejecutar tests unitarios (si los hay)
+npm run test
+
+# Verificar el build
+npm run build
+```
+
+## 📁 Estructura del proyecto
+
+```
+voicebot-trainer/
+├── public/                 # Archivos estáticos
+├── src/
+│   ├── components/         # Componentes Vue
+│   │   └── ChatInterface.vue
+│   ├── services/          # Servicios de integración
+│   │   ├── aiService.js       # Google Gemini
+│   │   ├── exerciseService.js # ExerciseDB API
+│   │   ├── nutritionService.js
+│   │   ├── speechService.js   # Text-to-Speech
+│   │   ├── voiceService.js    # Speech-to-Text
+│   │   └── loggingService.js  # Analytics
+│   ├── utils/             # Utilidades
+│   │   └── apiTest.js         # Testing de APIs
+│   ├── App.vue            # Componente principal
+│   ├── main.js            # Punto de entrada
+│   └── style.css          # Estilos globales
+├── .env.example           # Ejemplo de configuración
+├── package.json           # Dependencias
+├── vite.config.js         # Configuración de Vite
+└── README.md             # Esta documentación
+```
+
+## 🛠️ Scripts disponibles
+
+```bash
+# Desarrollo
+npm run dev              # Inicia servidor de desarrollo
+
+# Build
+npm run build           # Genera build para producción
+npm run preview         # Preview del build
+
+# Utilidades
+npm run lint            # Linter de código
+npm run format          # Formatea código
+```
+
+## 🔧 Troubleshooting
+
+### Problema: "AI model not available"
+**Solución:** Verifica que `VITE_GEMINI_API_KEY` esté configurado correctamente en `.env`
+
+### Problema: "Speech recognition not supported"
+**Solución:** 
+- Usa Chrome o Edge (navegadores compatibles)
+- Asegúrate de que el sitio use HTTPS en producción
+- Permite el acceso al micrófono
+
+### Problema: ExerciseDB devuelve 403
+**Solución:**
+- Verifica tu RapidAPI key
+- Revisa los límites de tu plan gratuito
+- El sistema funcionará con datos de fallback si falla
+
+### Problema: Webhook no funciona
+**Solución:**
+- Verifica que la URL del webhook sea correcta
+- Los logs se guardarán localmente si el webhook falla
+
+## 🚀 Deployment
+
+### Para producción:
+
+1. **Build del proyecto:**
+```bash
+npm run build
+```
+
+2. **Subir a tu servidor web:**
+Los archivos de `dist/` contienen la aplicación lista para producción.
+
+3. **Configurar HTTPS:**
+El reconocimiento de voz requiere HTTPS en producción.
+
+### Opciones de hosting:
+
+- **Netlify** (Recomendado para SPA)
+- **Vercel**  
+- **GitHub Pages**
+- **Firebase Hosting**
+
+## 📊 Analytics y Logging
+
+La aplicación automáticamente registra:
+- Consultas de voz del usuario
+- Respuestas generadas
+- Recomendaciones de ejercicios
+- Consejos nutricionales
+- Métricas de uso
+
+Los datos se envían al webhook configurado en tiempo real.
 2. Suscríbete al plan gratuito
 3. Agrega tu key a `VITE_RAPIDAPI_KEY` en tu archivo `.env`
 
@@ -150,56 +298,42 @@ Speech Synthesis → Respuesta hablada
 Webhook → Log de interacción
 ```
 
-## 🎨 Personalización
+## 🤝 Contribuir
 
-### Cambiar Idioma de Voz
+1. Fork el proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
 
-```javascript
-// En voiceService.js
-this.recognition.lang = 'en-US'; // Para inglés
-this.recognition.lang = 'es-MX'; // Para español mexicano
-```
+## 📄 Licencia
 
-### Agregar Nuevos Ejercicios
+Este proyecto está bajo la licencia MIT. Ver `LICENSE` para más detalles.
 
-```javascript
-// En exerciseService.js - método getFallbackExercises()
-const exercises = {
-  // ... ejercicios existentes
-  abs: [
-    { name: 'Crunches', instructions: 'Lie down, lift shoulders off ground', equipment: 'body weight' }
-  ]
-};
-```
+## 👨‍💻 Autor
 
-### Modificar Respuestas de Nutrición
+**iRivalAether**
+- GitHub: [@iRivalAether](https://github.com/iRivalAether)
 
-```javascript
-// En nutritionService.js - método getFallbackNutritionAdvice()
-const nutritionAdvice = {
-  // ... consejos existentes
-  postWorkout: {
-    title: 'Post-Entrenamiento',
-    suggestions: ['Batido de proteína', 'Plátano con mantequilla de almendra']
-  }
-};
-```
+## 🙏 Agradecimientos
 
-## 🚀 Despliegue
+- Google Gemini AI por la inteligencia artificial
+- ExerciseDB por la base de datos de ejercicios
+- Web Speech API por las capacidades de voz
+- Vue.js por el framework de frontend
 
-### Vercel (Recomendado)
+---
 
-1. **Instala Vercel CLI**
-```bash
-npm i -g vercel
-```
+### � ¿Necesitas ayuda?
 
-2. **Despliega**
-```bash
-vercel --prod
-```
+Si tienes problemas o preguntas:
 
-3. **Configura variables de entorno** en el dashboard de Vercel
+1. 🧪 Usa el botón "Test APIs" en la aplicación
+2. 📋 Revisa este README
+3. 🐛 Abre un issue en GitHub
+4. 📧 Contacta al autor
+
+¡Disfruta de tu entrenador personal virtual! 💪
 
 ### Netlify
 
